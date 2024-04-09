@@ -6,16 +6,13 @@ $my_var = "hello world";
 // echo stampa il valore in html
 echo $my_var;
 echo "<br>";
-// esercizio 1
 
+
+// esercizio 1 - data ita
+
+echo "<br>";
 
 $today = getdate();
-
-print_r($today);
-echo "<br>";
-print_r($today["month"]);
-
-
 $day = $today["weekday"];
 
 echo "<br>";
@@ -53,34 +50,25 @@ switch ($day) {
         break;
 };
 
-switch ($day) {
+$month = $today["month"];
+
+switch ($month) {
     case "Jenuary":
-        $day = "Gennnaio";
+        $month = "Gennnaio";
         break;
 
     case "February":
-        $day = "Febbraio";
+        $month = "Febbraio";
         break;
 
     case "March":
-        $day = "Marzo";
+        $month = "Marzo";
         break;
 
-    case "Thursday":
-        $day = "Aprile";
+    case "April":
+        $month = "Aprile";
         break;
 
-    case "Friday":
-        $day = "Venerdì";
-        break;
-
-    case "Saturday":
-        $day = "Sabato";
-        break;
-
-    case "Sunday":
-        $day = "Domenica";
-        break;
 
     default:
         echo 'Opzione non riconosciuta';
@@ -90,6 +78,8 @@ echo "<br>";
 
 
 $date = date('l, j F Y');
-$num_date = ("m");
-echo $num_date;
-echo $date;
+$numday = $today["mday"];
+$year = $today["year"];
+echo $day." , ".$numday." ".$month." ".$year;
+
+
