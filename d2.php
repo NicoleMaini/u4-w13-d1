@@ -4,11 +4,11 @@ echo '<pre>'.print_r($_POST, true).'</pre>'; // il tag pre serve a indettare a c
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
     // copiarsi i valori dell'array come valori singoli da poter confrontare
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $number = $_POST['number'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $name = $_POST['name'] ?? '';
+    $surname = $_POST['surname'] ?? '';
+    $number = $_POST['number'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
   
 
     $error = [];
@@ -25,10 +25,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error['password'] = 'Please provide a valid password (min length 8).';
     };
 
-    if ($error == [] || isset($_POST['checkbox'])) {
+    if ($error == [] && isset($_POST['checkbox'])) {
         header('location: /u4-w13/d2-success.php');
     };
 
+    print_r($error);
 };
 
 
@@ -49,40 +50,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" name="name" id="exampleInputName1" aria-describedby="emailHelp">
-        <div class="valid-feedback">
-      Looks good!
-    </div>
       </div>
       <div class="mb-3">
         <label for="surname" class="form-label">Surname</label>
         <input type="text" class="form-control" name="surname" id="exampleInputSurnaeml1" >
-        <div class="valid-feedback">
-      Looks good!
-    </div>
       </div>
       <div class="mb-3">
         <label for="number" class="form-label">Phone Number</label>
-        <input type="tel" class="form-control" name="number" id="exampleInputSurnaeml1" >
-        <div id="validationServer03Feedback" class="invalid-feedback">
-     
-    </div>
+        <input type="tel" class="form-control is-invalid" name="number" id="exampleInputSurnaeml1" >
+        <div id="validationServer03Feedback" class="invalid-feedback"><?= $error['number'] ?? '' ?></div>
       </div>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" name="email" class="form-control" id="exampleInputEmail1" >
-        <div id="validationServer03Feedback" class="invalid-feedback"><?= $errors['email'] ?? '' ?></div>      
+        <input type="email" name="email" class="form-control is-invalid" id="exampleInputEmail1" >
+        <div id="validationServer03Feedback" class="invalid-feedback"><?= $error['email'] ?? '' ?></div>      
     </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-        <div id="validationServer03Feedback" class="invalid-feedback"><?= $errors['password'] ?? '' ?>
+        <input type="password" name="password" class="form-control <?= isset($error['password']) ? 'is-invalid' : '' ?> " id="exampleInputPassword1">
+        <div id="validationServer03Feedback" class="invalid-feedback"><?= $error['password'] ?? '' ?>
       
     </div>
       </div>
       <div class="mb-3 form-check">
         <input type="checkbox" name="checkbox" value="checked" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Condition to accepted</label>
-        <div id="exampleCheck1" class="invalid-feedback"> bla bla <?php !isset($_POST['checkbox']) ?? 'check please' 
+        <div id="exampleCheck1" class="invalid-feedback"><?php !isset($_POST['checkbox']) ?? 'check please' 
         ?> </div>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
